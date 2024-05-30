@@ -3,6 +3,8 @@ const os = require("os");
 let ffmpeg;
 if (os.platform() === "win32") {
 	ffmpeg = `"${__dirname}\\..\\ffmpeg.exe"`;
+} else if (os.platform() === "freebsd") {
+	ffmpeg = `cp.execSync("which ffmpeg").toString("utf8").split("\n")[0].trim()`;
 } else {
 	ffmpeg = `"${__dirname}/../ffmpeg"`;
 }

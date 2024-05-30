@@ -3,7 +3,15 @@ const os = require("os");
 let ffmpeg;
 if (os.platform() === "win32") {
 	ffmpeg = `"${__dirname}\\..\\ffmpeg.exe"`;
-} else {
+} else if (os.platform() === "freebsd") {
+	try {
+		ffmpeg = cp.execSync("which ffmpeg").toString("utf8").split("\n")[0].trim();
+	} catch (error) {
+		console.log(error)
+		showPopup("No ffmpeg found in PATH");
+	}
+}
+ else {
 	ffmpeg = `"${__dirname}/../ffmpeg"`;
 }
 
@@ -135,6 +143,16 @@ downloadPathSelection();
 // Checking for yt-dlp
 let ytDlp;
 let ytdlpPath = path.join(os.homedir(), ".ytDownloader", "ytdlp");
+
+// Use system yt-dlp for freebsd
+if (os.platform() === "freebsd") {
+	try {
+		ytdlpPath = cp.execSync('which yt-dlp').toString("utf8").split("\n")[0].trim();
+	} catch (error) {
+		console.log(error)
+		showPopup("No yt-dlp found in PATH. Make sure you have the full executable")
+	}
+}
 
 // ytdlp download path
 let ytdlpDownloadPath;
@@ -1312,6 +1330,16 @@ function hideHidden() {
 		getId("hidden").style.display = "none";
 		getId("hidden").classList.remove("scale");
 	}, 400);
+}
+
+// Popup message
+function showPopup(text) {
+	console.log("Triggered showpopup");
+	getId("popupText").textContent = text;
+	getId("popupText").style.display = "inline-block";
+	setTimeout(() => {
+		getId("popupText").style.display = "none";
+	}, 2200);
 }
 
 // Menu

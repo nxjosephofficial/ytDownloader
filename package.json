@@ -54,66 +54,20 @@
 			"ffmpeg*",
 			"translations"
 		],
-		"mac": {
-			"category": "Utility",
-			"target": [
-				"zip",
-				"dmg"
-			],
-			"artifactName": "${productName}_Mac.${ext}"
-		},
-		"dmg": {
-			"contents": [
-				{
-					"x": 130,
-					"y": 220
-				},
-				{
-					"x": 410,
-					"y": 220,
-					"type": "link",
-					"path": "/Applications"
-				}
-			],
-			"sign": false
-		},
-		"asar": false,
 		"directories": {
 			"buildResources": "resources",
 			"output": "release"
 		},
 		"linux": {
 			"target": [
-				"Appimage",
-				"snap",
-				"rpm",
-				"zip",
-				"deb"
+				"zip"
 			],
 			"category": "Utility",
 			"artifactName": "${productName}_Linux.${ext}"
 		},
-		"snap": {
-			"grade": "stable",
-			"base": "core22"
-		},
-		"win": {
-			"target": [
-				"nsis",
-				"msi",
-				"zip"
-			],
-			"artifactName": "${productName}_Win.${ext}"
-		},
 		"nsis": {
 			"allowToChangeInstallationDirectory": true,
 			"oneClick": false
-		},
-		"msi": {
-			"oneClick": true,
-			"createDesktopShortcut": true,
-			"createStartMenuShortcut": true,
-			"shortcutName": "YTDownloader"
 		}
 	}
 }
